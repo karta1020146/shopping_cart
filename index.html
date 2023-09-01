@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            
+        }
+        p{
+            margin: 15px 0;
+        }
+        body{
+            background-color: rgb(237, 237, 183);
+            position: relative;
+        }
+        h1{
+            text-align: center;
+            font-size: 60px;
+            margin: 30px 0;
+        }
+        button{
+            font-size: 30px;
+            border-radius: 10px;
+            padding:0 5px;
+        }
+        #app{
+            width: 100%;
+            display: flex;
+            font-size: 36px;
+            font-weight: bolder;
+        }
+        .canNot{
+            font-size: 200px;
+            text-align: center;
+            width: 100%;
+            position: absolute;
+
+        }
+        .wrap{
+            width: 80%;
+            border: 2px solid;
+            margin: auto;
+            display: flex;
+            border-radius: 20px;
+            background-color: rgb(240, 216, 170);
+        }
+        .container{
+            width: 80%;
+            display: block;
+        }
+        .card{
+            width: 100%;
+            font-size: 24px;
+            font-weight: bolder;
+            display: flex;
+        }
+        input{
+            cursor: pointer;
+            width: 5%;
+            font-size: 20px;
+        }
+        .close{
+            font-size: 25px;
+            font-weight: bolder;
+            border: 0;
+            background-color: transparent;
+        }
+        .card .img{
+            padding: 5px;
+            width: 25%;
+            border-bottom: 2px solid;
+        }
+        .card .img img{
+            width: 100%;
+        }
+        .card .txt{
+            width: 75%;
+            border-left: 2px solid;
+            border-right: 2px solid;
+            border-bottom: 2px solid;
+            padding: 5px;
+        }
+        .card:last-child .img,
+        .card:last-child .txt{
+            border-bottom: 0px;
+        }
+        .total{
+            text-align: center;
+            width: 20%;
+            padding: 0 10px;
+        }
+        .total button{
+            font-size: 24px;
+        }
+        </style>
+</head>
+<body>
+    <h1>購物車</h1>
+    <div id="app">
+        <div v-if="prods.length === 0" class="canNot">
+            <p >買不起???</p>
+            <button Type="text" onClick="window.location.reload();">我後悔了~~</button>
+        </div>
+        <div class="wrap" v-else>
+            <div class="container">
+                <div v-for="(item, index) in prods" :key="index" class="card">
+                    <div class="img">
+                        <img :src="item.imgUrl" alt="bread_img">
+                    </div>
+                    <div class="txt">
+                        <p>品名:{{ item.name }} <input type="button" value="X" @click="close(index)" class="close"></p>
+                        <p>單價:{{ item.price }}</p>
+                        
+                        <p>
+                            <!-- <input type="number" v-model="item.count" min="1"> -->
+                            <input type="button" value="-" @click="lessbtn(item)">
+                            數量:{{ item.count }}
+                            <input type="button" value="+" @click="morebtn(item)">
+                        </p>
+                        <p>總價:{{ item.price * item.count}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="total">
+                <p>
+                    總計: {{ calculateTotal() }}
+                </p>
+                <button @click="reset">我不要了!!</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3"></script>
+    <script>
+        Vue.createApp({
+            data() {
+                return{
+                    prods: [
+                        {
+                        imgUrl: 'bread_4.png',
+                        name: '紅豆麵包',
+                        price: 30,
+                        count: 0
+                        },
+                        {
+                        imgUrl: 'bread_1.png',
+                        name: '牛角麵包',
+                        price: 35,
+                        count: 0
+                        },
+                        {
+                        imgUrl: 'bread_2.png',
+                        name: '巧克力甜甜圈',
+                        price: 40,
+                        count: 0
+                        },
+                        {
+                        imgUrl: 'bread_3.png',
+                        name: '雜糧麵包',
+                        price: 65,
+                        count: 0
+                        },
+                    ]
+                }
+            },
+
+            methods:{
+                morebtn(item){
+                    item.count ++;
+                },
+                lessbtn(item){
+                    if (item.count > 0) {
+                        item.count --;
+                    }
+                },
+                close(index){
+                    this.prods.splice(index, 1);
+                },
+                calculateTotal(){
+                    return this.prods.reduce((total, item) => total + (item.price * item.count), 0);
+                },
+                reset(){
+                    this.prods=[];
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
