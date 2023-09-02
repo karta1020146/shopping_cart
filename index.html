@@ -13,7 +13,7 @@
             margin: 0;
         }
         p{
-            margin: 15px 0;
+            margin: 5px 0;
         }
         body{
             background-color: rgb(237, 237, 183);
@@ -33,11 +33,10 @@
         #app{
             width: 100%;
             display: flex;
-            font-size: 36px;
             font-weight: bolder;
         }
         .canNot{
-            font-size: 200px;
+            font-size: 150px;
             text-align: center;
             width: 100%;
             position: absolute;
@@ -51,12 +50,12 @@
             background-color: rgb(240, 216, 170);
         }
         .container{
-            width: 80%;
+            width: 70%;
             display: block;
         }
         .card{
             width: 100%;
-            font-size: 24px;
+            font-size: 20px;
             font-weight: bolder;
             display: flex;
         }
@@ -74,14 +73,14 @@
         }
         .card .img{
             padding: 5px;
-            width: 25%;
+            width: 20%;
             border-bottom: 2px solid;
         }
         .card .img img{
             width: 100%;
         }
         .card .txt{
-            width: 75%;
+            width: 80%;
             border-left: 2px solid;
             border-right: 2px solid;
             border-bottom: 2px solid;
@@ -93,11 +92,12 @@
         }
         .total{
             text-align: center;
-            width: 20%;
+            width: 30%;
             padding: 0 10px;
+            font-size: 30px;
         }
         .total button{
-            font-size: 24px;
+            font-size: 22px;
         }
         </style>
 </head>
@@ -173,7 +173,7 @@
 
             methods:{
                 morebtn(item){
-                    item.count ++;
+                    item.count += 1;
                 },
                 lessbtn(item){
                     if (item.count > 0) {
